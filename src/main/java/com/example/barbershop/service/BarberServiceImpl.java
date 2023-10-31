@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BarberServiceImpl implements BarberService {
@@ -15,5 +16,10 @@ public class BarberServiceImpl implements BarberService {
     @Override
     public List<Barber> findAllBarbers() {
         return barberRepository.findAll();
+    }
+
+    @Override
+    public Optional<Barber> findBarberById(Long id) {
+        return barberRepository.findById(id);
     }
 }
