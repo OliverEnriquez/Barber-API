@@ -8,4 +8,10 @@ public interface ServiceBarberService {
     List<Service> findAllService();
 
     Optional<Service> findServiceById(Long id);
+
+    void createService(Service service);
+
+    void updateService(Service service);
+
+    void deleteService(Long id);
 }

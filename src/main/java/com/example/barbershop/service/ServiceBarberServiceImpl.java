@@ -21,4 +21,19 @@ public class ServiceBarberServiceImpl implements ServiceBarberService{
     public Optional<com.example.barbershop.domain.Service> findServiceById(Long id) {
         return serviceRepository.findById(id);
     }
+
+    @Override
+    public void createService(com.example.barbershop.domain.Service service) {
+        serviceRepository.save(service);
+    }
+
+    @Override
+    public void updateService(com.example.barbershop.domain.Service service) {
+        serviceRepository.save(service);
+    }
+
+    @Override
+    public void deleteService(Long id) {
+        serviceRepository.deleteById(id);
+    }
 }
