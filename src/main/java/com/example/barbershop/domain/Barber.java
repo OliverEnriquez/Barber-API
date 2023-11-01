@@ -1,8 +1,6 @@
 package com.example.barbershop.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -10,6 +8,7 @@ import lombok.Data;
 public class Barber {
     @Id
     @Column(name = "BARBER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long barberId;
     private String firstName;
     private String lastName;

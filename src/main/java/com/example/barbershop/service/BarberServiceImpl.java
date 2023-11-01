@@ -22,4 +22,22 @@ public class BarberServiceImpl implements BarberService {
     public Optional<Barber> findBarberById(Long id) {
         return barberRepository.findById(id);
     }
+
+    @Override
+    public Barber createBarber(Barber barber) {
+        return barberRepository.save(barber);
+    }
+
+
+
+
+    @Override
+    public Barber updateBarber(Barber barber) {
+        return barberRepository.save(barber);
+    }
+
+    @Override
+    public void deleteBarber(Long id) {
+        barberRepository.deleteById(id);
+    }
 }

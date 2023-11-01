@@ -9,4 +9,11 @@ public interface BarberService {
 
     List<Barber> findAllBarbers();
     Optional<Barber> findBarberById(Long id);
+
+    Barber createBarber(Barber barber);
+
+
+    Barber updateBarber(Barber barber);
+
+    void deleteBarber(Long id);
 }
