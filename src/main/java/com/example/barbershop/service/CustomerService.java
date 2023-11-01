@@ -8,4 +8,10 @@ public interface CustomerService {
 
     List<Customer> findAllCustomers();
     Optional<Customer> findCustomerById(Long id);
+
+    Customer createCustomer(Customer customer);
+
+    Customer updateCustomer(Customer customer);
+
+    void deleteCustomer(Long id);
 }

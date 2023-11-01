@@ -10,10 +10,7 @@ import com.example.barbershop.service.BarberService;
 import com.example.barbershop.service.CustomerService;
 import com.example.barbershop.service.ServiceBarberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,16 +22,7 @@ public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
 
-    @Autowired
-    BarberService barberService;
 
-    @Autowired
-    CustomerService customerService;
-
-    @Autowired
-    ServiceBarberService serviceBarberService;
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @GetMapping(value = "/appointments")
     public List<Appointment> findAllAppointments() {
@@ -44,20 +32,16 @@ public class AppointmentController {
 
     @PostMapping(value = "/appointment")
     public void saveAppointment(@RequestBody AppointmentDto dto) {
-        Optional<Customer> customer = customerService.findCustomerById(dto.getCustomerId());
-        Optional<Barber> barber = barberService.findBarberById(dto.getBarberId());
-        Optional<Service> service = serviceBarberService.findServiceById(dto.getServiceId());
-        Appointment appointment = new Appointment();
-        appointment.setAppointmentDateTime(dto.getDate());
-        appointment.setStatus("Programado");
+        appointmentService.addAppointment(dto);
+    }
 
+    @PutMapping(value = "/appointment")
+    public void updateAppointment(@RequestBody AppointmentDto dto) {
+        appointmentService.updateAppointment(dto);
+    }
 
-        appointment.setBarber(barber.get());
-        appointment.setCustomer(customer.get());
-        appointment.setService(service.get());
-
-        appointmentService.addAppointment(appointment);
-
-
+    @DeleteMapping(value = "/appointment/{id}")
+    public void deleteAppointment(@PathVariable("id") Long id) {
+        appointmentService.deleteAppointment(id);
     }
 }

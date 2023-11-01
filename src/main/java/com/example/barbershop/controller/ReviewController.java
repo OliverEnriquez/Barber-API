@@ -12,10 +12,7 @@ import com.example.barbershop.service.ServiceBarberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,15 +24,6 @@ public class ReviewController {
 
     @Autowired
     ReviewService reviewService;
-
-    @Autowired
-    BarberService barberService;
-
-    @Autowired
-    CustomerService customerService;
-
-    @Autowired
-    ServiceBarberService serviceBarberService;
 
     @GetMapping(value = "/reviews")
     public List<Review> findAllReviews() {
@@ -49,27 +37,31 @@ public class ReviewController {
         }
     }
 
+    @GetMapping(value = "/review/{id}")
+    public Optional<Review> getReviewId(@PathVariable("id") Long id) {
+        return reviewService.getReviewById(id);
+    }
+
     @PostMapping(value = "/review")
     public void addReview(@RequestBody ReviewDto dto) {
-        Review review = new Review();
         try {
-            Optional<Customer> customer = customerService.findCustomerById(dto.getCustomerId());
-            Optional<Barber> barber = barberService.findBarberById(dto.getBarberId());
-            Optional<Service> service = serviceBarberService.findServiceById(dto.getServiceId());
-
-            if(barber.isPresent() && customer.isPresent() && service.isPresent()) {
-                review.setCustomer(customer.get());
-                review.setService(service.get());
-                review.setBarber(barber.get());
-            }
-
-            review.setComment(dto.getComment());
-            review.setRating(dto.getRating());
-            review.setReviewDateTime(LocalDateTime.now());
-
-            reviewService.addReview(review);
+            reviewService.addReview(dto);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @PutMapping(value = "/review")
+    public void updateReview(@RequestBody ReviewDto dto) {
+        try {
+            reviewService.addReview(dto);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @DeleteMapping(value = "/review/{id}")
+    public void deleteReview(@PathVariable("id") Long id) {
+        reviewService.deleteReview(id);
     }
 }
