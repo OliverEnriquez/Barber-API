@@ -12,7 +12,7 @@ public interface AppointmentService {
 
     List<Appointment> findAll();
 
-    Optional<Appointment> appointment(Long id);
+    Optional<Appointment> getAppointmentId(Long id);
 
     void updateAppointment(AppointmentDto dto);
 
