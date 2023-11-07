@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class BarberController {
 
     @Autowired
@@ -26,7 +27,8 @@ public class BarberController {
 
     @GetMapping(value = "/barber/{id}")
     public Optional<Barber> findBarberById(@PathVariable("id") Long id) {
-        return barberService.findBarberById(id);
+        Optional<Barber> barber = barberService.findBarberById(id);
+        return barber;
     }
 
     @PostMapping(value = "/barber")

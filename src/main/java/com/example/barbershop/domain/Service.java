@@ -16,4 +16,5 @@ public class Service {
     private String serviceName;
     private String description;
     private Double price;
+    private String image;
 }

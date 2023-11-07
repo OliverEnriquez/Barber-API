@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @RestController
+@CrossOrigin
 public class CustomerController {
 
     private static final Logger logger = Logger.getLogger(CustomerController.class.getName());
