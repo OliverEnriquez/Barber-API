@@ -1,6 +1,8 @@
 package com.example.barbershop.service;
 
+import com.example.barbershop.domain.Appointment;
 import com.example.barbershop.domain.Customer;
+import com.example.barbershop.repository.AppointmentRepository;
 import com.example.barbershop.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
+    @Autowired
+    AppointmentRepository appointmentRepository;
+
 
     @Override
     public List<Customer> findAllCustomers() {
@@ -36,6 +41,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Long id) {
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByCustomer_CustomerId(id);
+        appointmentRepository.deleteAll(appointments);
         customerRepository.deleteById(id);
     }
 }
